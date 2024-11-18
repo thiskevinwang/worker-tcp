@@ -9,6 +9,7 @@ enabled = true
 [vars]
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
+REDIS_PASSWORD = "dev"
 
 [[durable_objects.bindings]]
 name = "MY_DURABLE_OBJECT"
@@ -21,6 +22,7 @@ new_classes = ["MyDurableObject"]
 [env.test.vars]
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
+REDIS_PASSWORD = "test"
 
 [[env.test.durable_objects.bindings]]
 name = "MY_DURABLE_OBJECT"

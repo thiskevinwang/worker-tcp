@@ -20,6 +20,7 @@ app.onError(async (e, c) => {
 
 app.use(async (c, next) => {
 	const cache = new Cache(connect({ hostname: c.env.REDIS_HOST, port: c.env.REDIS_PORT }));
+	await cache.AUTH(c.env.REDIS_PASSWORD);
 	c.set('cache', cache);
 	await next();
 	await cache.close();
@@ -62,6 +63,7 @@ export default class extends WorkerEntrypoint<Env> {
 
 	async _flushDB() {
 		const cache = new Cache(connect({ hostname: this.env.REDIS_HOST, port: this.env.REDIS_PORT }));
+		await cache.AUTH(this.env.REDIS_PASSWORD);
 		return cache.FLUSHDB();
 	}
 }

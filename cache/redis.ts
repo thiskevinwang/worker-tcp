@@ -40,6 +40,10 @@ export class Cache {
 		return deserialize(decoded);
 	}
 
+	async AUTH(password: string) {
+		return this.#send(`AUTH ${password}`);
+	}
+
 	async SET(key: string, value: string) {
 		return this.#send(`SET ${key} ${value}`);
 	}
@@ -102,6 +106,11 @@ function deserialize(redisResponse: string) {
 	// Integers: https://redis.io/docs/latest/develop/reference/protocol-spec/#integers
 	if (redisResponse.startsWith(':')) {
 		return Number(redisResponse.slice(1));
+	}
+
+	// Simple errors: https://redis.io/docs/latest/develop/reference/protocol-spec/#simple-errors
+	if (redisResponse.startsWith('-')) {
+		throw new Error(redisResponse.slice(1).replace(CRLFRegex, ''));
 	}
 
 	return redisResponse;

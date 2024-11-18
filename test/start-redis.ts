@@ -4,7 +4,10 @@ import type { GlobalSetupContext } from 'vitest/node';
 
 export async function setup({ provide }: GlobalSetupContext) {
 	console.log('[GLOBAL SETUP]');
-	execSync('docker run --rm -d -p 6379:6379 --name test-redis redis');
+	execSync(`docker run \
+		--rm -d -p 6379:6379 \
+		--name test-redis \
+		redis:latest --requirepass test`);
 }
 
 export async function teardown() {

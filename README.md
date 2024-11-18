@@ -11,7 +11,7 @@ This is a simple worker project that connects to Redis over [TCP sockets](https:
 
 Terminal window 1
 ```console
-user@machine:~ $ docker run --rm -p 6379:6379 --name some-redis redis
+user@machine:~ $ docker run --rm -p 6379:6379 --name some-redis redis --requirepass dev
 ```
 
 Terminal window 2
